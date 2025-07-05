@@ -11,12 +11,17 @@ using UnityEngine.Playables;
 using static UnityEngine.GraphicsBuffer;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using UnityEditor.AnimatedValues;
 
 
 
 public class Myplayer : MonoBehaviourPun
 {
+    public Animator animbody;
     private bool getWeapon;
+    public float rotationSpeed = 10f;
+    public GameObject playerModel;
+    public GameObject CameraPlace;
     public bool shouldShow;
     public float PanelMoveSpeed;
     public RectTransform panel;
@@ -103,8 +108,7 @@ public class Myplayer : MonoBehaviourPun
         
         controls.Player.Crouch.performed += ctx => crouch();
 
-        controls.Player.Move.performed += ctx => { moveInput = ctx.ReadValue<Vector2>();   };
-        controls.Player.Move.canceled += ctx => { moveInput = Vector2.zero;    };
+     
 
 
 
@@ -127,7 +131,7 @@ public class Myplayer : MonoBehaviourPun
 
 
     void Start()
-    {
+    {   
         isreborn = false;
         playerHealth = Maxhealth;
         characterController = GetComponent<CharacterController>();
@@ -149,7 +153,10 @@ public class Myplayer : MonoBehaviourPun
     private void Update()
 
     {
+        float horizontal = Input.GetAxis("Horizontal"); // 对应 A/D 或 左/右箭头
+        float vertical = Input.GetAxis("Vertical");     // 对应 W/S 或 上/下箭头
 
+          moveInput = new Vector2(horizontal, vertical);
         if (isDamage)
         {
             hurtImage.color = new Color(150 / 255f, 0f, 0f, 1f);
@@ -169,24 +176,7 @@ public class Myplayer : MonoBehaviourPun
         Myweapon = inventory.weapons[inventory.currentWeaponID].GetComponent<Weapon_automatic>();
 
         Myweapon.gameObject.SetActive(!isDead);
-        if(isDead)
-        {
-            cameras.transform.SetParent(head);
-             
-
-        }
-        else
-        {
-            AnimatorStateInfo info = Animbody.GetCurrentAnimatorStateInfo(0);
-            if(!info.IsName("StandUp"))
-            {
-                cameras.transform.SetParent(originaltransform);
-                cameras.transform.localPosition = Vector3.zero;
-                cameras.transform.localRotation = Quaternion.identity;
-            }
-           
-
-        }
+       
         Animbody.SetBool("IsReborn", isreborn);
         
 
@@ -374,9 +364,16 @@ public class Myplayer : MonoBehaviourPun
             if(isDead)
         {
             return;
-        }    
+        }
+
         
-       
+        animbody.SetBool("Run", isrun);
+        
+        animbody.SetFloat("Horizontal", moveInput.x);
+        animbody.SetFloat("Vertical", moveInput.y);
+
+
+        animbody.SetBool("Crouch", isCrouching);
 
         if (isCrouching)
         {
@@ -400,7 +397,7 @@ public class Myplayer : MonoBehaviourPun
             slider.value = 0;
             PlayerHealthUI.text = "0";
         }
-        if (controls.Player.Sprint.IsPressed() && !Myweapon.isAiming && moveDirection.sqrMagnitude > 0 && !isCrouching)
+        if (controls.Player.Sprint.IsPressed() && moveDirection.sqrMagnitude > 0 && !isCrouching)
         {
             if (isGround) { speed = runSpeed; isrun = true; }
         }
@@ -651,10 +648,25 @@ public class Myplayer : MonoBehaviourPun
     }
     public void Moving()
     {
-        
-         
-        moveDirection = (transform.right * moveInput.x + transform.forward * moveInput.y).normalized;
-       
+
+
+        // 1. 摄像机前后左右方向（忽略上下角度）
+        Vector3 camForward = CameraPlace.transform.forward;
+        camForward.y = 0f;
+        camForward.Normalize();
+
+        Vector3 camRight = CameraPlace.transform.right;
+        camRight.y = 0f;
+        camRight.Normalize();
+
+        // 2. 得到角色在摄像机方向的移动方向
+          moveDirection = (camRight * moveInput.x + camForward * moveInput.y).normalized;
+
         characterController.Move(moveDirection * speed * Time.deltaTime);
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 }

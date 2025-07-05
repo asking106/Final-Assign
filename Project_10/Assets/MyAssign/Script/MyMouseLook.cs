@@ -11,6 +11,8 @@ public class MyMouseLook : MonoBehaviour
 
     private MyPlayerControls controls;
     private Vector2 lookInput;
+    private float mousex;
+    private float mousey;
 
     private CharacterController characterController;
     private PhotonView photonView;
@@ -62,23 +64,23 @@ public class MyMouseLook : MonoBehaviour
         {
             return;
         }
-        float mouseX = (lookInput.x ) * mouseSensitivity * Time.deltaTime;
-        float mouseY = (lookInput.y) * mouseSensitivity * Time.deltaTime;
-        
+        // 摄像机绕角色旋转（鼠标X控制水平角度）
+        float mouseX = lookInput.x * mouseSensitivity * Time.deltaTime;
+        // 摄像机上下旋转（鼠标Y控制垂直角度）
+        float mouseY = lookInput.y * mouseSensitivity * Time.deltaTime;
 
+        // 更新角度
+        mousex += mouseX;
+        mousey -= mouseY;
+        mousey = Mathf.Clamp(mousey, -60f, 60f);
 
-        yRotation -= mouseY;
-        yRotation += shakePitchOffset;
-        shakePitchOffset = 0f;
-        yRotation = Mathf.Clamp(yRotation, -60f, 60f);
-         
+        // 应用旋转
+        transform.rotation = Quaternion.Euler(mousey, mousex, 0f);
 
-        transform.localRotation = Quaternion.Euler(yRotation  , 0f, 0f);
-        playerbody.Rotate(Vector3.up * mouseX);
-        float heightTarget= characterController.height * 0.9f;
-        
-       height= Mathf.Lerp(height,heightTarget,interpolationSpeed*Time.deltaTime);
-        transform.localPosition = Vector3.up * height;
+        //  float heightTarget= characterController.height * 0.9f;
+
+        // height= Mathf.Lerp(height,heightTarget,interpolationSpeed*Time.deltaTime);
+        // transform.localPosition = Vector3.up * height;
     }
     public void AddRecoil(float amount)
     {
