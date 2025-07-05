@@ -6533,6 +6533,7 @@ Transform:
   - {fileID: 1666759116}
   - {fileID: 534305794}
   - {fileID: 1025990282}
+  - {fileID: 790474113}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &238689394
@@ -22668,7 +22669,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2109427612}
+    m_TransformParent: {fileID: 236034288}
     m_Modifications:
     - target: {fileID: 3885252881815176323, guid: ae3f57f014a5aab49b161265a47fdf13,
         type: 3}
@@ -22693,17 +22694,17 @@ PrefabInstance:
     - target: {fileID: 3927364216246041733, guid: ae3f57f014a5aab49b161265a47fdf13,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.371216
+      value: 735.38336
       objectReference: {fileID: 0}
     - target: {fileID: 3927364216246041733, guid: ae3f57f014a5aab49b161265a47fdf13,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.84506226
+      value: -118.213806
       objectReference: {fileID: 0}
     - target: {fileID: 3927364216246041733, guid: ae3f57f014a5aab49b161265a47fdf13,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 67.45288
+      value: 1248.9028
       objectReference: {fileID: 0}
     - target: {fileID: 3927364216246041733, guid: ae3f57f014a5aab49b161265a47fdf13,
         type: 3}
@@ -62177,7 +62178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1961188821}
   m_Layer: 0
-  m_Name: GameObject_1
+  m_Name: StartPostion(Maybe)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65394,7 +65395,6 @@ Transform:
   - {fileID: 1083265837}
   - {fileID: 1024482639}
   - {fileID: 7481927535473311080}
-  - {fileID: 790474113}
   - {fileID: 824915166}
   - {fileID: 1173601037}
   - {fileID: 2014138952}
@@ -68047,7 +68047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8664440873334795528}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
