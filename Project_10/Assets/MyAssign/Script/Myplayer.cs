@@ -12,12 +12,13 @@ using static UnityEngine.GraphicsBuffer;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using UnityEditor.AnimatedValues;
+using System.IO.IsolatedStorage;
 
 
 
 public class Myplayer : MonoBehaviourPun
 {
-    public Animator animbody;
+   
     private bool getWeapon;
     public float rotationSpeed = 10f;
     public GameObject playerModel;
@@ -62,6 +63,9 @@ public class Myplayer : MonoBehaviourPun
     private Myplayer targetPlayers = null;
     private string nickname;
     public int scores;
+    private float targetSpeed;
+    public float acceleration=5f;
+     
 
 
     public float crouchHeight;
@@ -155,8 +159,9 @@ public class Myplayer : MonoBehaviourPun
     {
         float horizontal = Input.GetAxis("Horizontal"); // 对应 A/D 或 左/右箭头
         float vertical = Input.GetAxis("Vertical");     // 对应 W/S 或 上/下箭头
+        speed = Mathf.Lerp(speed, targetSpeed, Time.deltaTime * acceleration);
 
-          moveInput = new Vector2(horizontal, vertical);
+        moveInput = new Vector2(horizontal, vertical);
         if (isDamage)
         {
             hurtImage.color = new Color(150 / 255f, 0f, 0f, 1f);
@@ -211,6 +216,7 @@ public class Myplayer : MonoBehaviourPun
         }
         
         Animbody.SetBool("Death", isDead);
+        Animbody.SetBool("IsHit", !isDead && isDamage);
         
 
         
@@ -367,13 +373,16 @@ public class Myplayer : MonoBehaviourPun
         }
 
         
-        animbody.SetBool("Run", isrun);
-        
-        animbody.SetFloat("Horizontal", moveInput.x);
-        animbody.SetFloat("Vertical", moveInput.y);
+        //animbody.SetBool("Run", isrun);
+       
+     Animbody.SetFloat("Speed", moveInput.magnitude * speed);
+        // moveInput.magnitude* speed
+
+        //  animbody.SetFloat("Horizontal", moveInput.x);
+        // animbody.SetFloat("Vertical", moveInput.y);
 
 
-        animbody.SetBool("Crouch", isCrouching);
+        Animbody.SetBool("Crouch", isCrouching);
 
         if (isCrouching)
         {
@@ -399,11 +408,11 @@ public class Myplayer : MonoBehaviourPun
         }
         if (controls.Player.Sprint.IsPressed() && moveDirection.sqrMagnitude > 0 && !isCrouching)
         {
-            if (isGround) { speed = runSpeed; isrun = true; }
+            if (isGround) { targetSpeed = runSpeed; isrun = true; }
         }
         else
         {
-            if (!isCrouching) { speed = walkspeed; isrun = false; }
+            if (!isCrouching) { targetSpeed = walkspeed; isrun = false; }
             else { isrun = false; }
 
 
@@ -484,10 +493,16 @@ public class Myplayer : MonoBehaviourPun
         if (isjump && isGround)
         {
             isGround = false;
+            Animbody.SetBool("Jump", true);
             jumpforce = 5f;
+        }
+        else if(isGround)
+        {
+            Animbody.SetBool("Jump", false);
         }
 
     }
+ 
     public void Cancrouch()
     { 
      Vector3 sphereLocation  =  transform.position + Vector3.up * standHeight;
@@ -506,7 +521,7 @@ public class Myplayer : MonoBehaviourPun
         isCrouching =  !isCrouching;
         if(isCrouching==true)
         {
-            speed = crouchspeed;
+            targetSpeed = crouchspeed;
         }
         characterController.height = isCrouching ? crouchHeight : standHeight;
         characterController.center = characterController.height / 2.0f * Vector3.up;
@@ -629,11 +644,13 @@ public class Myplayer : MonoBehaviourPun
         if (playerHealth <= 0)
         {
             isDead = true;
+            
             DeathTime = 60f;
          
            
 
         }
+         
     }
 
      IEnumerator DelayDeath()
