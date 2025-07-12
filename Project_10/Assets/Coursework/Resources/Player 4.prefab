@@ -78898,6 +78898,7 @@ GameObject:
   - component: {fileID: 7695486033974967577}
   - component: {fileID: 7136551909659712734}
   - component: {fileID: 299741606308380541}
+  - component: {fileID: 2493860838192795736}
   m_Layer: 0
   m_Name: Man
   m_TagString: Untagged
@@ -78982,6 +78983,22 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &2493860838192795736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8055128524616913237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &8055812585709583368
 GameObject:
   m_ObjectHideFlags: 0
@@ -82439,15 +82456,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8761440603949417914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ddcc3b20eb556c4ebccc8a016eeb78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FPS_Hands_childGameobjects:
-  - {fileID: 7432201420696120761}
-  Soldeier_childGameObjects:
-  - {fileID: 1460422880396384582}
+  - {fileID: 6050783785563736292}
+  Soldeier_childGameObjects: []
 --- !u!114 &3605327583147379264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82470,6 +82486,7 @@ MonoBehaviour:
   - {fileID: 1271330157952383083}
   - {fileID: 2716106403993372757}
   - {fileID: 299741606308380541}
+  - {fileID: 2493860838192795736}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
