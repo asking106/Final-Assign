@@ -8,7 +8,7 @@ using System.Linq;
 public class PlayerSetUp : MonoBehaviourPunCallbacks
 {
     public GameObject[] FPS_Hands_childGameobjects;
-    public GameObject[] Soldeier_childGameObjects;
+    public GameObject[] UIgameObject;
    
     
 
@@ -21,9 +21,19 @@ public class PlayerSetUp : MonoBehaviourPunCallbacks
             foreach(GameObject game in FPS_Hands_childGameobjects)
             {
                 game.SetActive(true);
-               
+              
+
+
             }
-            
+            foreach (GameObject game in UIgameObject)
+            {
+                game.SetActive(true);
+
+
+
+            }
+
+
 
         }
         else
@@ -33,8 +43,15 @@ public class PlayerSetUp : MonoBehaviourPunCallbacks
                 game.SetActive(false);
 
             }
-            
-              
+            foreach (GameObject game in UIgameObject)
+            {
+                game.SetActive(false);
+
+
+
+            }
+
+
 
 
         }
