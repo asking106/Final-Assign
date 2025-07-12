@@ -181,8 +181,8 @@ public class Myplayer : MonoBehaviourPun
         Myweapon = inventory.weapons[inventory.currentWeaponID].GetComponent<Weapon_automatic>();
 
         Myweapon.gameObject.SetActive(!isDead);
-       
-        Animbody.SetBool("IsReborn", isreborn);
+       // ***************************TO********************************//
+       //    Animbody.SetBool("IsReborn", isreborn);
         
 
 
