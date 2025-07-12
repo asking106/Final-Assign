@@ -19,6 +19,7 @@ public class MobileFPSGameManager : MonoBehaviour
     private GameObject cachemyplayer;
     private List<GameObject> CachealivePlayers =  new List<GameObject>();
     private float timer;
+    public Vector3 startPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class MobileFPSGameManager : MonoBehaviour
             if (playerPrefab != null)
             {
                 int randomPoint = Random.Range(1220, 1230);
-                PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(randomPoint, 105f, 1300f),Quaternion.identity);
+                PhotonNetwork.Instantiate(playerPrefab.name, startPoint, Quaternion.identity);
             }
             else
             {
@@ -136,7 +137,7 @@ public class MobileFPSGameManager : MonoBehaviour
 
                     int randomPoint = Random.Range(-10, 10);
 
-                    PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(randomPoint, 105f, 1300f), Quaternion.identity);
+                    PhotonNetwork.Instantiate(playerPrefab.name, startPoint, Quaternion.identity);
 
 
 
