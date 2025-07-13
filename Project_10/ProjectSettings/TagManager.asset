@@ -19,6 +19,7 @@ TagManager:
   - Fire
   - Bullet
   - Impact
+  - Bomb
   layers:
   - Default
   - TransparentFX

@@ -84933,6 +84933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7dbf4d17a7c7d641a58b6c5ebcba6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textForprop: {fileID: 4482338213509885404}
   rotationSpeed: 10
   playerModel: {fileID: 2526554624443895890}
   CameraPlace: {fileID: 7432201420696120761}
