@@ -27,7 +27,9 @@ public class LPExplosive : MonoBehaviour
     {
         // If there is an explosion effect, create it
         if (explodeEffect) Instantiate(explodeEffect, transform.position, transform.rotation);
-
+       Transform parent1= Camera.main.transform.GetComponentInParent<Transform>();
+        Myplayer Player= parent1.transform.GetComponentInParent<Myplayer>();
+        Player.PlayerHealth(20f);
         // If there is a camera and a camera effect, create it and attach it to the camera
         if (cameraEffect && Camera.main)
         {

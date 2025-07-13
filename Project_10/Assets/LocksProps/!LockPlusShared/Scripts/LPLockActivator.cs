@@ -1,7 +1,10 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +15,8 @@ public class LPLockActivator : MonoBehaviour
 {
     // The player object in the scene, tagged "Player"
     internal GameObject playerObject;
-
+    public PhotonView photonview;
+    public bool isSelect;
     // Several arrays used to hold objects from the RFPS package, and hide them when interacting with a lock
     internal MonoBehaviour[] enemiesRFPS;
     internal MonoBehaviour[] cameraRFPS;
@@ -56,8 +60,10 @@ public class LPLockActivator : MonoBehaviour
     internal int index;
 
     // Use this for initialization
-    void Start()
+    void Start()    
     {
+        isSelect = false;
+        photonview =GetComponent<PhotonView>();
         // Hide the player position object while playing the game
         if (playerDummy != null) playerDummy.gameObject.SetActive(false);
 
@@ -108,15 +114,29 @@ public class LPLockActivator : MonoBehaviour
         // Deactivate the lock object and reactivate any relevant scene objects ( from RFPS, etc )
         DeactivateObject();
     }
+    [PunRPC]
+    public void IsSelect()
+    {
+        isSelect = true;
+    }
 
     /// <summary>
     /// Activates the lock object, and deactivates any relevant scene objects ( from RFPS, etc )
     /// </summary>
     public void ActivateObject()
-    {
+    {    
+
         // If the object is locked, activate it so we can interact with it and unlock it
         if (isLocked == true)
         {
+            if (isSelect)
+            {
+                return;
+            }
+            else
+            {
+                photonview.RPC("IsSelect", RpcTarget.All);
+            }
             // Deactivate all objects related to the RFPS package which might interfere with the lock minigame
             DeactivateRFPSObjects();
 
@@ -125,7 +145,7 @@ public class LPLockActivator : MonoBehaviour
 
             // Show the mouse cursor and don't lock it to the game window so we can interact with the activated object
             Cursor.visible = true;
-            
+
             Cursor.lockState = CursorLockMode.None;
 
             // Activate the lock object
@@ -146,6 +166,11 @@ public class LPLockActivator : MonoBehaviour
             winEvents.Invoke();
         }
     }
+    [PunRPC]
+    public void IsnotSelect()
+    {
+        isSelect=false;
+    }
 
     /// <summary>
     /// Deactivates the lock object, and activates any relevant scene objects ( from RFPS, etc )
@@ -157,6 +182,10 @@ public class LPLockActivator : MonoBehaviour
 
         // Activate all objects related to the RFPS package so we can continue playing the game
         ActivateRFPSObjects();
+        Cursor.lockState= CursorLockMode.Locked;
+        Cursor.visible = false;
+        photonview.RPC("IsnotSelect",RpcTarget.All);
+       
 
         // Deactivate the lock object
         if (lockObject && alwaysShowLock == false) lockObject.SetActive(false);
@@ -258,8 +287,17 @@ public class LPLockActivator : MonoBehaviour
 
     public void RemoveObject()
     {
-        Destroy(gameObject);
+        photonview.RPC("ObjectDestroy", RpcTarget.AllBuffered);
+
+
     }
+    [PunRPC]
+    public void ObjectDestroy()
+    {
+        Destroy(gameObject);
+
+    }
+
 
     /// <summary>
     /// Animates the respositioning of the player to the position and rotation of the player dummy.
