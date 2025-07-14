@@ -29,8 +29,8 @@ public class MobileFPSGameManager : MonoBehaviour
         {
             if (playerPrefab != null)
             {
-                int randomPoint = Random.Range(1220, 1230);
-                PhotonNetwork.Instantiate(playerPrefab.name, startPoint, Quaternion.identity);
+                int randomPoint = Random.Range(-5, 5);
+                PhotonNetwork.Instantiate(playerPrefab.name, startPoint+randomPoint*new Vector3(0,0, 1f), Quaternion.identity);
             }
             else
             {

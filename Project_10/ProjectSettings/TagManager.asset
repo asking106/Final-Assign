@@ -20,6 +20,7 @@ TagManager:
   - Bullet
   - Impact
   - Bomb
+  - GameManager
   layers:
   - Default
   - TransparentFX

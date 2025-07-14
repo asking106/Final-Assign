@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,15 +45,15 @@ public class LPExplosive : MonoBehaviour
         if (explodePower > 0)
         {
             // Find the rigidbody of the player
-            Rigidbody playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+          //  Rigidbody playerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
 
             // Apply the explosion to the player
-            playerObject.AddExplosionForce(explodePower, transform.position, 5, 2);
+          //  playerObject.AddExplosionForce(explodePower, transform.position, 5, 2);
         }
 
         // Play the sound effect
         if (GetComponent<AudioSource>() && explodeSound) GetComponent<AudioSource>().PlayOneShot(explodeSound);
 
-        Destroy(gameObject);
+       PhotonNetwork .Destroy(gameObject);
     }
 }

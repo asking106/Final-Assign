@@ -90,8 +90,8 @@ public class LPLockActivator : MonoBehaviour
     public void Win()
     {
         // The lock is no longer locked
-        isLocked = false;
-
+        photonview.RPC("LockState", RpcTarget.AllBuffered);
+        playerObject.transform.GetComponent<Myplayer>().Animbody.SetBool("JieMi", false);
         // Go through all the targeted objects and run the win functions on them
         winEvents.Invoke();
         Cursor.lockState = CursorLockMode.Locked;
@@ -100,6 +100,11 @@ public class LPLockActivator : MonoBehaviour
         // Deactivate the lock object and reactivate any relevant scene objects ( from RFPS, etc )
         DeactivateObject();
     }
+    [PunRPC]
+    public void LockState()
+    {
+        isLocked = false;
+    }
 
     /// <summary>
     /// Runs a list of lose actions on the targeted objects, such as exploding a bomb, etc
@@ -107,6 +112,7 @@ public class LPLockActivator : MonoBehaviour
     public void Lose()
     {
         // Go through all the targeted objects and run the lose functions on them
+        playerObject.transform.GetComponent<Myplayer>().Animbody.SetBool("JieMi", false);
         loseEvents.Invoke();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -200,16 +206,33 @@ public class LPLockActivator : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Player"))
         {
             // Get the player object in the scene
-            playerObject = GameObject.FindGameObjectWithTag("Player");
+            playerObject = GameObject.FindGameObjectWithTag("GameManager").transform.GetComponent<MobileFPSGameManager>().myplayer;
 
-            // Get all the components attached to the player and its children
-            MonoBehaviour[] allComponents = playerObject.GetComponentsInChildren<MonoBehaviour>();
+            playerObject.transform.GetComponent<Myplayer>().speed= 0;
+            playerObject.transform.GetComponent<Myplayer>().Animbody.SetBool("JieMi",true);
+           // Get all the components attached to the player and its children
+           MonoBehaviour[] allComponents = playerObject.GetComponentsInChildren<MonoBehaviour>();
 
             // Disable all the components we found
-            foreach (MonoBehaviour component in allComponents) component.enabled = false;
+            foreach (MonoBehaviour component in allComponents)
+            {
+                // 排除 PhotonView、PhotonAnimatorView、PhotonTransformView
+                if ((component is PhotonView ||
+                      component is PhotonAnimatorView ||
+                      component is PhotonTransformView))
+                {
+                    component.enabled = true;
+                }
+                else
+                {
+                    component.enabled = false;
+                }
+            }
+
+
 
             // If the player has a Rigid Body, prevent it from reacting to world physics
-            if (playerObject.GetComponent<Rigidbody>()) playerObject.GetComponent<Rigidbody>().isKinematic = true;
+
 
             // If we have a player position/rotation dummy, set the new player position and rotation
             if (playerDummy != null)
@@ -262,12 +285,17 @@ public class LPLockActivator : MonoBehaviour
         // Enable the components on the player object in the scene
         if (playerObject)
         {
+            playerObject.transform.GetComponent<Myplayer>().Animbody.SetBool("JieMi", false);
             // Get all the components attached to the player and its children
             MonoBehaviour[] allComponents = playerObject.GetComponentsInChildren<MonoBehaviour>();
 
-            // Enable all the components we found
-            foreach (MonoBehaviour component in allComponents) component.enabled = true;
-
+            foreach (MonoBehaviour component in allComponents)
+            {
+                // 排除 PhotonView、PhotonAnimatorView、PhotonTransformView
+                 
+                    component.enabled = true;
+               
+            }
             // If the player has a Rigid Body, allow it to react to world physics
             if (playerObject.GetComponent<Rigidbody>()) playerObject.GetComponent<Rigidbody>().isKinematic = false;
         }
@@ -287,16 +315,12 @@ public class LPLockActivator : MonoBehaviour
 
     public void RemoveObject()
     {
-        photonview.RPC("ObjectDestroy", RpcTarget.AllBuffered);
+       
+        PhotonNetwork.Destroy(gameObject);
 
 
     }
-    [PunRPC]
-    public void ObjectDestroy()
-    {
-        Destroy(gameObject);
-
-    }
+   
 
 
     /// <summary>
