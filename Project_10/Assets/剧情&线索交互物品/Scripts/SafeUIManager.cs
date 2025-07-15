@@ -15,13 +15,13 @@ public class SafeUIManager : MonoBehaviour
 
     void Update()
     {
-        // Ê×ÏÈ£¬¼ì²éÊÇ·ñÓĞÈÎºÎÒ»¸öUIÃæ°åÊÇ¼¤»î×´Ì¬
-        if (paperContentFloor1UI.activeSelf || paperContentFloor2_1UI.activeSelf || paperContentFloor2_2UI.activeSelf || diaryContentUI.activeSelf)
+        // é¦–å…ˆï¼Œæ£€æŸ¥æ˜¯å¦æœ‰ä»»ä½•ä¸€ä¸ªUIé¢æ¿æ˜¯æ¿€æ´»çŠ¶æ€
+        if (paperContentFloor1UI.activeSelf || paperContentFloor2_1UI.activeSelf || paperContentFloor2_2UI.activeSelf || diaryContentUI.activeSelf || passwordF1_1UI.activeSelf || passwordF1_2UI.activeSelf || passwordF2_1UI.activeSelf || passwordF2_2UI.activeSelf)
         {
-            // Èç¹ûÓĞUIÊÇ¼¤»îµÄ£¬ÔÙ¼ì²âÊÇ·ñÓĞÈÎÒâ¼ü±»°´ÏÂ
+            // å¦‚æœæœ‰UIæ˜¯æ¿€æ´»çš„ï¼Œå†æ£€æµ‹æ˜¯å¦æœ‰ä»»æ„é”®è¢«æŒ‰ä¸‹
             if (Input.GetMouseButtonDown(0))
             {
-                // Èç¹û°´ÏÂÁË£¬¾Íµ÷ÓÃÎÒÃÇÒÑ¾­Ğ´ºÃµÄ¹Ø±ÕËùÓĞUIµÄ·½·¨
+                // å¦‚æœæŒ‰ä¸‹äº†ï¼Œå°±è°ƒç”¨æˆ‘ä»¬å·²ç»å†™å¥½çš„å…³é—­æ‰€æœ‰UIçš„æ–¹æ³•
                 HideAllUI();
             }
         }
