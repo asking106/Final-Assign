@@ -8,7 +8,7 @@ using System.Linq;
 public class PlayerSetUp : MonoBehaviourPunCallbacks
 {
     public GameObject[] FPS_Hands_childGameobjects;
-    public GameObject[] Soldeier_childGameObjects;
+    public GameObject[] UIgameObject;
    
     
 
@@ -21,70 +21,42 @@ public class PlayerSetUp : MonoBehaviourPunCallbacks
             foreach(GameObject game in FPS_Hands_childGameobjects)
             {
                 game.SetActive(true);
-               
-            }
-            foreach(GameObject gameObject in Soldeier_childGameObjects)
-            {
-                SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
-                MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
-                foreach(MeshRenderer mesh in meshRenderers)
-                {
-                    mesh.enabled = false;
-                }
-                foreach (SkinnedMeshRenderer renderer in renderers)
-                {
-                    renderer.enabled = false;
-                }
+              
+
 
             }
+            foreach (GameObject game in UIgameObject)
+            {
+                game.SetActive(true);
+
+
+
+            }
+
+
+
         }
         else
         {
             foreach (GameObject game in FPS_Hands_childGameobjects)
             {
-                SkinnedMeshRenderer[] renderers = game.GetComponentsInChildren<SkinnedMeshRenderer>(true);
-                foreach (SkinnedMeshRenderer renderer in renderers)
-                {
-                    renderer.enabled = false;
-                }
-                MeshRenderer[] meshRenderers = game.GetComponentsInChildren<MeshRenderer>(true);
-                foreach (MeshRenderer renderer in meshRenderers)
-                {
-                    renderer.enabled = false;
-                }
-
-                Camera[] cameras = game.GetComponentsInChildren<Camera>(true);
-                    foreach (Camera cam in cameras)
-                        cam.enabled = false;
-
-                    AudioListener[] listeners = game.GetComponentsInChildren<AudioListener>(true);
-                    foreach (AudioListener listener in listeners)
-                        listener.enabled = false;
-                Canvas[] canvases = game.GetComponentsInChildren<Canvas>(true);
-                 foreach (Canvas canvas in canvases)
-                {
-                    canvas.enabled = false;
-                }
-                
+                game.SetActive(false);
 
             }
-            foreach (GameObject gameObject in Soldeier_childGameObjects)
+            foreach (GameObject game in UIgameObject)
             {
-                SkinnedMeshRenderer[] renderers = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
-                foreach (SkinnedMeshRenderer renderer in renderers)
-                {
-                    renderer.enabled = true;
-                }
+                game.SetActive(false);
 
-                MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
-                foreach (MeshRenderer mesh in meshRenderers)
-                {
-                    mesh.enabled = true;
-                }
+
 
             }
-             
+
+
+
+
         }
+             
+       
     }
 
     // Update is called once per frame

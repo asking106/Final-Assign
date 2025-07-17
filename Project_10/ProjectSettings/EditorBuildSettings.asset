@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Coursework/Scenes/LobbyScene.unity
     guid: 406274ce148864e42a77567e30ef70d9
   - enabled: 1
-    path: Assets/ApocalypticWasteland/Scenes/GameScene.unity
-    guid: 246461ea805f3c14cb620102040f1e34
+    path: Assets/Scenes/GameScene.unity
+    guid: 2f99c9bef5060d1419c81909459f9484
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9eb07e2d669e9c94e9d7d3c782a916f7,
       type: 2}
