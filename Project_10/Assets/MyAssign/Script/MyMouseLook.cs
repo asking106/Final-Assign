@@ -6,7 +6,7 @@ public class MyMouseLook : MonoBehaviour
 {
     public float mouseSensitivity = 400f;
     private Transform playerbody;
-    private float yRotation = 0f;
+    
     
 
     private MyPlayerControls controls;
@@ -16,8 +16,7 @@ public class MyMouseLook : MonoBehaviour
 
     private CharacterController characterController;
     private PhotonView photonView;
-    private float height = 1.8f;
-    private float interpolationSpeed = 12f;
+  
     private float shakePitchOffset = 0f; // 上下震动偏移
 
     private void Awake()

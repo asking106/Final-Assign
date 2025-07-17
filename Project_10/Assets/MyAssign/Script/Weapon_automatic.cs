@@ -1,8 +1,8 @@
-using Cinemachine;
+ 
 using Photon.Pun;
-using Photon.Pun.Demo.Asteroids;
+ 
 using System.Collections;
-using System.Collections.Generic;
+ 
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +16,7 @@ public class SoundClip
 {
      
     public AudioClip ShootSound;
+    public GameManager GameManager;
     public AudioClip SilencerShootSound;
     public AudioClip ReloadSoundAmmoLeft;
     public AudioClip ReloadSoundOutOfAmmo;

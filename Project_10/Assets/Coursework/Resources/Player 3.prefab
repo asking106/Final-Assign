@@ -5906,6 +5906,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: cfb8a7c3184f21047bf50b23afdc5806, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: f63960a72547a1646ad3a2e56f8cb751,
@@ -8578,6 +8579,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: 9725f166fab506e45a16924306480f26, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: 48e906dd4c0f9874e9e8d65736ac4cb4,
@@ -27982,6 +27984,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: 9e9480b4d07646942b555fd43f2a0f71, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1,
@@ -66637,6 +66640,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: cfb8a7c3184f21047bf50b23afdc5806, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: f63960a72547a1646ad3a2e56f8cb751,
@@ -80848,6 +80852,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: cfb8a7c3184f21047bf50b23afdc5806, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: 0152069dde3b1e945908369da0b5631c,
@@ -83567,6 +83572,7 @@ MonoBehaviour:
   isAiming: 0
   soundClip:
     ShootSound: {fileID: 8300000, guid: cfb8a7c3184f21047bf50b23afdc5806, type: 3}
+    GameManager: {fileID: 0}
     SilencerShootSound: {fileID: 8300000, guid: c1bd91cf7c20534478c9b9c5d69d1732,
       type: 3}
     ReloadSoundAmmoLeft: {fileID: 8300000, guid: f63960a72547a1646ad3a2e56f8cb751,
@@ -84927,6 +84933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7dbf4d17a7c7d641a58b6c5ebcba6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textForprop: {fileID: 4482338213509885404}
   rotationSpeed: 10
   playerModel: {fileID: 2526554624443895890}
   CameraPlace: {fileID: 7432201420696120761}
@@ -85120,15 +85127,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8761440603949417914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ddcc3b20eb556c4ebccc8a016eeb78e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FPS_Hands_childGameobjects:
-  - {fileID: 7432201420696120761}
-  Soldeier_childGameObjects:
-  - {fileID: 1460422880396384582}
+  - {fileID: 6050783785563736292}
+  UIgameObject:
+  - {fileID: 6740261358514461440}
+  - {fileID: 3168011837868046256}
 --- !u!114 &3605327583147379264
 MonoBehaviour:
   m_ObjectHideFlags: 0

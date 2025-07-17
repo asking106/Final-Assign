@@ -1,18 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
+ 
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
+ 
 using Photon.Pun;
 using TMPro;
 using UnityEngine.UI;
-using Photon.Realtime;
-using UnityEngine.Playables;
-using static UnityEngine.GraphicsBuffer;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using UnityEditor.AnimatedValues;
-using System.IO.IsolatedStorage;
+
+
+
 
 
 
@@ -20,6 +17,7 @@ public class Myplayer : MonoBehaviourPun
 {
    
     private bool getWeapon;
+    public Text textForprop;
     public float rotationSpeed = 10f;
     public GameObject playerModel;
     public GameObject CameraPlace;
@@ -181,8 +179,8 @@ public class Myplayer : MonoBehaviourPun
         Myweapon = inventory.weapons[inventory.currentWeaponID].GetComponent<Weapon_automatic>();
 
         Myweapon.gameObject.SetActive(!isDead);
-       
-        Animbody.SetBool("IsReborn", isreborn);
+       // ***************************TO********************************//
+       //    Animbody.SetBool("IsReborn", isreborn);
         
 
 
@@ -287,6 +285,48 @@ public class Myplayer : MonoBehaviourPun
                 }
 
             }
+
+            Collider[] colliderForProps = Physics.OverlapSphere(transform.position, reviveRange);
+            Collider[] colliderForProps2 = Physics.OverlapSphere(transform.position, reviveRange + 2f);
+            foreach (Collider collider in colliderForProps2)
+            {
+
+                if (colliderForProps.Contains(collider))
+                {
+
+
+                    if (collider.gameObject.CompareTag("Bomb"))
+                    {
+                        shouldShow = true;
+                        textForprop.text = "Press E to check...";
+                        if (Input.GetKeyDown(KeyCode.E))
+                        {
+                            shouldShow = false;
+                            collider.gameObject.GetComponent<LPLockActivator>().ActivateObject();
+
+                            break;
+                        }
+                        break;
+
+
+
+                    }
+                    
+                }
+                else
+                {
+                    if (collider.gameObject.CompareTag("Bomb"))
+                    {
+                        shouldShow = false;
+                    }
+                }
+                
+                
+            }
+            
+
+         
+
             float targetX = shouldShow ? -185 : 210;
             Vector2 anchoredPosition = panel.anchoredPosition;
             anchoredPosition.x = Mathf.MoveTowards(anchoredPosition.x, targetX, PanelMoveSpeed * Time.deltaTime);
@@ -319,6 +359,7 @@ public class Myplayer : MonoBehaviourPun
                             
                         }
                         shouldShow = true;
+                        textForprop.text = "Long Press F to rebirth";
 
 
                         Debug.Log("The player is enter");
