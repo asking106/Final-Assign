@@ -60,10 +60,10 @@ public class LPLockActivator : MonoBehaviour
     internal int index;
 
     // Use this for initialization
-    void Start()    
+    void Start()
     {
         isSelect = false;
-        photonview =GetComponent<PhotonView>();
+        photonview = GetComponent<PhotonView>();
         // Hide the player position object while playing the game
         if (playerDummy != null) playerDummy.gameObject.SetActive(false);
 
@@ -93,7 +93,7 @@ public class LPLockActivator : MonoBehaviour
         photonview.RPC("LockState", RpcTarget.AllBuffered);
         playerObject.transform.GetComponent<Myplayer>().Animbody.SetBool("JieMi", false);
         // Go through all the targeted objects and run the win functions on them
-        winEvents.Invoke();
+        photonview.RPC("EventInvoke", RpcTarget.AllBuffered);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -130,7 +130,7 @@ public class LPLockActivator : MonoBehaviour
     /// Activates the lock object, and deactivates any relevant scene objects ( from RFPS, etc )
     /// </summary>
     public void ActivateObject()
-    {    
+    {
 
         // If the object is locked, activate it so we can interact with it and unlock it
         if (isLocked == true)
@@ -169,8 +169,13 @@ public class LPLockActivator : MonoBehaviour
         else
         {
             // Go through all the targeted objects and run the win functions on them
-            winEvents.Invoke();
+            photonview.RPC("EventInvoke", RpcTarget.AllBuffered);
         }
+    }
+    [PunRPC]
+    public void EventInvoke()
+    {
+        winEvents.Invoke();
     }
     [PunRPC]
     public void IsnotSelect()
